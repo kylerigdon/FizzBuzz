@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>App Name: A coding challenge</title>
+    <title>FizzBuzz: A coding challenge</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -44,7 +44,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-xxl">
                 <a class="navbar-brand" href="/index.html"> <img src="/img/RobotWhite logo - no background.svg"
-                        height="30" /> App Name</a>
+                        height="30" /> FizzBuzz</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -74,30 +74,137 @@
             <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-                        function displayMessage() {
-                            let inputBox = document.getElementById('message');
-                            let message = inputBox.value;
+                        // collect the user inputs
+// AKA the Entry Point
+function getValues() {
+  // get the input element for fizzNumber and grab its value
+  let fizzNumber = document.getElementById('fizzNumber').value;
 
-                            Swal.fire(
-                                {
-                                    title: "App Name",
-                                    text: message,
-                                    icon: "success",
-                                    backdrop: false
-                                }
-                            );
-                        }
+  // do the same thing for buzzNumber
+  let buzzNumber = document.getElementById('buzzNumber').value;
+
+  // get the input for stopNumber
+  let stopNumber = document.getElementById('stopNumber').value;
+
+  fizzNumber = Number(fizzNumber);
+  buzzNumber = Number(buzzNumber);
+  stopNumber = Number(stopNumber);
+
+  if (isNaN(fizzNumber) || isNaN(buzzNumber) || fizzNumber < 1 || fizzNumber > stopNumber || buzzNumber > stopNumber || stopNumber > 100) {
+    // display an error message
+    Swal.fire({
+      icon: "error",
+      title: "Oops!",
+      text: 'Please enter a valid number for FizzBuzz to use.',
+      backdrop: false
+    });
+  } else {
+    let generatedFizzBuzz = generateFizzBuzz(fizzNumber, buzzNumber, stopNumber);
+    displayFizzBuzz(generatedFizzBuzz);
+  }
+}
+
+function generateFizzBuzz(fizz, buzz, end) {
+  let numbers = [];
+  let fizzBuzz = [];
+
+  for (let i = 1; i <= end; i++) {
+       numbers.push(i);
+  }
+
+  for (let index = 0; index < numbers.length; index += 1) {
+
+    let number = numbers[index];
+    
+    if (number % fizz == 0 && number % buzz == 0) {
+      // replace number with FizzBuzz
+      number = 'FizzBuzz';
+      fizzBuzz.push(number);
+    } else if (number % fizz == 0){
+      // replace number with Fizz
+      number = 'Fizz';
+      fizzBuzz.push(number);
+    } else if(number % buzz == 0) {
+      number = 'Buzz';
+      fizzBuzz.push(number);
+    } else {
+      fizzBuzz.push(number);
+    }
+
+  }
+  
+
+  return fizzBuzz;
+}
+
+// display those numbers in my results table
+function displayFizzBuzz(fizzBuzzArray) {
+
+  let tableHtml = '';
+
+  for (let index = 0; index < fizzBuzzArray.length; index += 1) {
+    
+    let number = fizzBuzzArray[index];
+
+    let className = '';
+    if (number == 'FizzBuzz') {
+      // replace number with FizzBuzz
+      className = 'table-danger'
+    } else if (number == 'Fizz'){
+      // replace number with Fizz
+      className = 'table-secondary'
+    } else if(number == 'Buzz') {
+      className = 'table-dark'
+    }
+
+    tableHtml += `<tr><td class="${className}">${number}</td></tr>`;
+  }
+
+  let tbody = document.getElementById('results');
+  tbody.innerHTML = tableHtml;
+}
                     </code>
                 </pre>
             </div>
             <!-- The code's explanation -->
             <div class="col-12 col-lg-4">
-                <p>The code is structured in one function.</p>
-                <h5><code>displayMessage()</code></h5>
+                <p>The code is structured in three functions.</p>
+                <h5><code>getValues()</code></h5>
                 <p>
-                    The <code>displayMessage</code> function gets the
-                    text from the input element and displays it in
-                    a Sweet Alert popup.
+                    The <code>getValues</code> function gets the
+                    text from the input elements and checks to make sure the user had input the correct input
+                    type and that the numbers are within parameters like the fizz number and buzz number cannot
+                    be more than the stop number. Then it calls the <code>generateFizzBuzz</code> function once it
+                    recieves the value from that function it will store it in the value <code>generatedFizzBuzz</code>.
+                    Which is then passed to the <code>displayFizzBuzz</code> function.
+                </p>
+                <h5><code>generateFizzBuzz()</code></h5>
+                <p>
+                    The <code>generateFizzBuzz</code> function gets the
+                    value of the fizzNumber, buzzNumber and stopNumber it then takes the starting number of i
+                    which is equal to 1 and runs it through the incrementing for loop adding each number to the
+                    numbers array then adding one to the number and looping, until it is no longer less than or equal to
+                    the value of end. Once it has done this it will exit the for loop. The next for loop will start
+                    checking if each number in the array is divisible by fizzNumber, buzzNumber or both and changing
+                    them
+                    to fizz, buzz, or fizzbuzz and pushing them to the fizzBuzz array. Once that is finished it will
+                    take the
+                    fizzBuzz array's value and pass it to <code>getValues</code> to use in the
+                    <code>generatedFizzBuzz</code>
+                    variable.
+                </p>
+                <h5><code>displayFizzBuzz()</code></h5>
+                <p>
+                    The <code>displayFizzBuzz</code> function is where the array value of <code>generatedFizzBuzz</code>
+                    is passed to and used to locate each number in its index position and turn it into an html table
+                    element
+                    after it has passed through the if/else statements to check if they have a value of Fizz, Buzz, or
+                    FizzBuzz
+                    to decide if it will have a certain background color on the table based on that value. Once each
+                    index position in
+                    the array has been through the if/else statements it will add the new string thats been created
+                    and stored in the tableHtml variable and adds it to the tbody element in the html page with an
+                    id of results.
                 </p>
             </div>
         </div>

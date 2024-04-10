@@ -112,3 +112,8 @@ footer {
     font-weight: 300;
 }
 
+.table-responsive {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
