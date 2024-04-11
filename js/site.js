@@ -15,7 +15,7 @@ function getValues() {
   buzzNumber = Number(buzzNumber);
   stopNumber = Number(stopNumber);
 
-  if (isNaN(fizzNumber) || isNaN(buzzNumber) || fizzNumber < 1 || fizzNumber > stopNumber || buzzNumber > stopNumber || stopNumber > 100) {
+  if (isNaN(fizzNumber) || isNaN(buzzNumber) || isNaN(stopNumber) || fizzNumber < 1 || fizzNumber > stopNumber || buzzNumber > stopNumber || stopNumber > 100) {
     // display an error message
     Swal.fire({
       icon: "error",
