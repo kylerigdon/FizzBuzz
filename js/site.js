@@ -82,7 +82,7 @@ function displayFizzBuzz(fizzBuzzArray) {
       className = 'table-dark'
     }
 
-    tableHtml += `<tr><td class="${className}">${number}</td></tr>`;
+    tableHtml += `<tr><td class="text-center ${className}">${number}</td></tr>`;
   }
 
   let tbody = document.getElementById('results');
