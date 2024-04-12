@@ -88,7 +88,7 @@ footer {
 }
 
 .app-logo {
-    max-width: 450px;
+    max-width: 360px;
 }
 
 .checklist {
@@ -116,4 +116,18 @@ footer {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .app-logo {
+        max-width: 370px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .app-logo {
+        max-width: 450px;
+    }
 }
